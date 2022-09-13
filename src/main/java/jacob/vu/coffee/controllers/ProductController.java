@@ -6,10 +6,7 @@ import jacob.vu.coffee.repositories.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
@@ -27,19 +24,26 @@ public class ProductController {
 
         return repository.findAll();
     }
+
+    // This request is: http://localhost:8080/api/v1/products/{id}
     @GetMapping("/{id}")
     ResponseEntity<ResponseObject> findById(@PathVariable Long id){
 
         Optional<Product> product = repository.findById(id);
 
-        if (product.isPresent()){
-            return ResponseEntity.status(HttpStatus.OK).body(
+        return product.isPresent() ?
+             ResponseEntity.status(HttpStatus.OK).body(
                     new ResponseObject("OK", "Query product successfully", product)
-            );
-        }else{
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(
+             ):
+             ResponseEntity.status(HttpStatus.NOT_FOUND).body(
                     new ResponseObject("Failed", "Can't found product with id=" + id, product)
-            );
-        }
+             );
+    }
+
+    @PostMapping("/insert")
+    ResponseEntity<ResponseObject> insertNewProduct(@RequestBody Product newProduct){
+        return ResponseEntity.status(HttpStatus.OK).body(
+                new ResponseObject("ok", "Insert new product successfully!", repository.save(newProduct))
+        );
     }
 }
