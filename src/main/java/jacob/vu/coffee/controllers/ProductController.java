@@ -42,6 +42,14 @@ public class ProductController {
 
     @PostMapping("/insert")
     ResponseEntity<ResponseObject> insertNewProduct(@RequestBody Product newProduct){
+
+        List<Product> products = repository.findByName(newProduct.getName().trim());
+
+        if(products.size()>0){
+            return ResponseEntity.status(HttpStatus.NOT_IMPLEMENTED).body(
+                    new ResponseObject("failed", "product name is already taken", ""));
+        }
+
         return ResponseEntity.status(HttpStatus.OK).body(
                 new ResponseObject("ok", "Insert new product successfully!", repository.save(newProduct))
         );
