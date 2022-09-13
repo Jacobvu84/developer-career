@@ -1,33 +1,59 @@
 package jacob.vu.coffee.models;
 
-public class Product {
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 
-    private Long id;
+@Entity
+public class Product {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long productId;
     private String name;
-    private int year;
+    private int yearOfManufacture;
     private Double price;
     private String url;
 
     public Product(){}
 
-    public Product(Long id, String name, int year, Double price, String url) {
-        this.id = id;
+    public Product( String name, int year, Double price, String url) {
         this.name = name;
-        this.year = year;
+        this.yearOfManufacture = year;
         this.price = price;
         this.url = url;
     }
 
-    public Long getId() {
-        return id;
+    public void setProductId(Long productId) {
+        this.productId = productId;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setYearOfManufacture(int yearOfManufacture) {
+        this.yearOfManufacture = yearOfManufacture;
+    }
+
+    public void setPrice(Double price) {
+        this.price = price;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
+
+    public Long getProductId() {
+        return productId;
     }
 
     public String getName() {
         return name;
     }
 
-    public int getYear() {
-        return year;
+    public int getYearOfManufacture() {
+        return yearOfManufacture;
     }
 
     public Double getPrice() {
@@ -41,9 +67,9 @@ public class Product {
     @Override
     public String toString() {
         return "Product{" +
-                "id=" + id +
+                "id=" + productId +
                 ", name='" + name + '\'' +
-                ", year=" + year +
+                ", year=" + yearOfManufacture +
                 ", price=" + price +
                 ", url='" + url + '\'' +
                 '}';
