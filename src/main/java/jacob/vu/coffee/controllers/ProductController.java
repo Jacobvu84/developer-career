@@ -96,4 +96,20 @@ public class ProductController {
         return ResponseEntity.status(HttpStatus.NOT_IMPLEMENTED).body(
                 new ResponseObject("failed", "product id not found", ""));*/
 
+    @DeleteMapping("/{id}")
+    ResponseEntity<ResponseObject> deleteProduct(@PathVariable Long id){
+       boolean exist = repository.existsById(id);
+
+       if(exist){
+           repository.deleteById(id);
+           return ResponseEntity.status(HttpStatus.OK).body(
+                   new ResponseObject("ok", "the product is deleted!", "")
+           );
+       }
+
+       return ResponseEntity.status(HttpStatus.NOT_FOUND).body(
+               new ResponseObject("failed", "product not found!", "")
+       );
+    }
+
 }
