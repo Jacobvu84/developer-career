@@ -64,7 +64,7 @@ public class ProductController {
                 product -> {
                     product.setName(newProduct.getName());
                     product.setPrice(newProduct.getPrice());
-                    product.setYearOfManufacture(newProduct.getYearOfManufacture());
+                    product.set_year(newProduct.get_year());
                     product.setUrl(newProduct.getUrl());
                     return repository.save(product);
                 }

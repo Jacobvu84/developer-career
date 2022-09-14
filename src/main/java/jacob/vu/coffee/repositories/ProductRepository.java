@@ -10,6 +10,4 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
     // Name method needs to follow convention: findBy<nameAttribute>
     List<Product> findByName(String name);
 
-    List<Product> findByProductId(Long id);
-
 }

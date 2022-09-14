@@ -1,39 +1,49 @@
 package jacob.vu.coffee.models;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
+@Table(name="tblProduct")
 public class Product {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long productId;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+/*  @SequenceGenerator(
+            name = "product_sequence",
+            sequenceName = "product_sequence",
+            allocationSize = 1
+    )
+    @GeneratedValue(
+            strategy = GenerationType.SEQUENCE,
+            generator = "product_sequence")
+*/
+
+    private Long id;
+    @Column(nullable = false, unique = true, length = 255)
     private String name;
-    private int yearOfManufacture;
+    @Column(name = "yearOfManufacture")
+    private int _year;
     private Double price;
     private String url;
 
     public Product(){}
 
-    public Product( String name, int year, Double price, String url) {
+    public Product(String name, int year, Double price, String url) {
         this.name = name;
-        this.yearOfManufacture = year;
+        this._year = year;
         this.price = price;
         this.url = url;
     }
 
-    public void setProductId(Long productId) {
-        this.productId = productId;
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public void setName(String name) {
         this.name = name;
     }
 
-    public void setYearOfManufacture(int yearOfManufacture) {
-        this.yearOfManufacture = yearOfManufacture;
+    public void set_year(int _year) {
+        this._year = _year;
     }
 
     public void setPrice(Double price) {
@@ -44,16 +54,16 @@ public class Product {
         this.url = url;
     }
 
-    public Long getProductId() {
-        return productId;
+    public Long getId() {
+        return id;
     }
 
     public String getName() {
         return name;
     }
 
-    public int getYearOfManufacture() {
-        return yearOfManufacture;
+    public int get_year() {
+        return _year;
     }
 
     public Double getPrice() {
@@ -67,9 +77,9 @@ public class Product {
     @Override
     public String toString() {
         return "Product{" +
-                "id=" + productId +
+                "id=" + id +
                 ", name='" + name + '\'' +
-                ", year=" + yearOfManufacture +
+                ", year=" + _year +
                 ", price=" + price +
                 ", url='" + url + '\'' +
                 '}';
